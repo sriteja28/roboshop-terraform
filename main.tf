@@ -33,22 +33,22 @@ module "rabbitmq" {
   vpc_id         = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
   subnet_id      = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)[0]
 
-  env  = var.env
-  tags = var.tags
+  env            = var.env
+  tags           = var.tags
   allow_ssh_cidr = var.allow_ssh_cidr
-  zone_id = var.zone_id
+  zone_id        = var.zone_id
 }
 
 module "rds" {
   source = "git::https://github.com/sriteja28/tf-module-rds.git"
 
-  for_each = var.rds
-  component = each.value["component"]
-  engine = each.value["engine"]
+  for_each       = var.rds
+  component      = each.value["component"]
+  engine         = each.value["engine"]
   engine_version = each.value["engine_version"]
-  db_name = each.value["db_name"]
-  subnet_ids = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
+  db_name        = each.value["db_name"]
+  subnet_ids     = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
 
   tags = var.tags
-  env = var.env
+  env  = var.env
 }
