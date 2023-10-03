@@ -11,15 +11,11 @@ module "vpc" {
 
 }
 
-#module "app_server" {
-#  source = "git::https://github.com/sriteja28/tf-module-app.git"
-#
-#  env = var.env
-#  tags = var.tags
-#  component = "test"
-#  subnet_id
-#}
+module "app_server" {
+  source = "git::https://github.com/sriteja28/tf-module-app.git"
 
-output "subnet_ids" {
-  value = module.vpc
+  env = var.env
+  tags = var.tags
+  component = "test"
+  subnet_id = module.vpc["subnet_ids"]["app"]["subnet_ids"][0]
 }
