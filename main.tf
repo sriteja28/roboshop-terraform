@@ -51,6 +51,8 @@ module "rds" {
   subnet_ids     = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
   instance_count = each.value["instance_count"]
   instance_class = each.value["instance_class"]
+  vpc_id = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
+  sg_subnet_cidr = lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null)
 
   tags        = var.tags
   env         = var.env
