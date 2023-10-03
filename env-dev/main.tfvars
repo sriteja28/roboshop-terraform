@@ -1,38 +1,5 @@
 env = "dev"
 
-#components = {
-#  frontend  = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#  mongodb   = {
-#    tags = { env = "dev" }
-#  }
-#  catalogue = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#  redis     = {
-#    tags = { env = "dev" }
-#  }
-#  user      = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#  cart      = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#  mysql     = {
-#    tags = { env = "dev" }
-#  }
-#  shipping  = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#  rabbitmq  = {
-#    tags = { env = "dev" }
-#  }
-#  payment   = {
-#    tags = { Monitor = "true", env = "dev" }
-#  }
-#}
-
 tags = {
   company_name  = "XTZ Tech"
   business      = "ecommerce"
@@ -57,6 +24,7 @@ default_vpc_id = "vpc-07e965f3c5e0cef0a"
 default_vpc_rt = "rtb-0536cf0e3912e0a5a"
 allow_ssh_cidr = ["172.31.29.210/32"]
 zone_id        = "Z070672135BYB8H2ZSHPN"
+kms_key_id     = "80393f26-f6cd-4ccf-8282-eec198269898"
 
 rabbitmq = {
   main = {
