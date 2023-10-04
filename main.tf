@@ -61,41 +61,58 @@ module "vpc" {
 
 
 
-module "documentdb" {
-  source = "git::https://github.com/sriteja28/tf-module-documentdb.git"
+#module "documentdb" {
+#  source = "git::https://github.com/sriteja28/tf-module-documentdb.git"
+#
+#  for_each          = var.documentdb
+#  component         = each.value["component"]
+#  subnet_ids        = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
+#  vpc_id            = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
+#  sg_subnet_cidr    = lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null)
+#  engine            = each.value["engine"]
+#  engine_version    = each.value["engine_version"]
+#  db_instance_count = each.value["db_instance_count"]
+#  instance_class    = each.value["instance_class"]
+#
+#  tags        = var.tags
+#  env         = var.env
+#  kms_key_arn = var.kms_key_arn
+#}
+#
+#module "elasticache" {
+#  source = "git::https://github.com/sriteja28/tf-module-elasticache.git"
+#
+#  for_each                = var.elasticache
+#  component               = each.value["component"]
+#  subnet_ids              = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
+#  vpc_id                  = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
+#  sg_subnet_cidr          = lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null)
+#  engine                  = each.value["engine"]
+#  engine_version          = each.value["engine_version"]
+#  replicas_per_node_group = each.value["replicas_per_node_group"]
+#  num_node_groups         = each.value["num_node_groups"]
+#  node_type               = each.value["node_type"]
+#  parameter_group_name    = each.value["parameter_group_name"]
+#
+#
+#  tags        = var.tags
+#  env         = var.env
+#  kms_key_arn = var.kms_key_arn
+#}
 
-  for_each          = var.documentdb
-  component         = each.value["component"]
-  subnet_ids        = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
-  vpc_id            = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
-  sg_subnet_cidr    = lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null)
-  engine            = each.value["engine"]
-  engine_version    = each.value["engine_version"]
-  db_instance_count = each.value["db_instance_count"]
-  instance_class    = each.value["instance_class"]
+module "alb" {
+  source = "git::https://github.com/sriteja28/tf-module-alb.git"
 
-  tags        = var.tags
-  env         = var.env
-  kms_key_arn = var.kms_key_arn
-}
+  for_each           = var.alb
+  name               = each.value["name"]
+  internal           = each.value["internal"]
+  load_balancer_type = each.type["load_balancer_type"]
+  vpc_id             = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
+  sg_subnet_cidr     = each.value[name] == "public" ? [
+    0.0.0.0/0
+  ] : concat(lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "web", null), "cidr_block", null), lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null))
+  subnet_ids         = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), each.value["subnets_ref"], null), "subnet_ids", null)
 
-module "elasticache" {
-  source = "git::https://github.com/sriteja28/tf-module-elasticache.git"
-
-  for_each                = var.elasticache
-  component               = each.value["component"]
-  subnet_ids              = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), "db", null), "subnet_ids", null)
-  vpc_id                  = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
-  sg_subnet_cidr          = lookup(lookup(lookup(lookup(var.vpc, "main", null), "subnets", null), "app", null), "cidr_block", null)
-  engine                  = each.value["engine"]
-  engine_version          = each.value["engine_version"]
-  replicas_per_node_group = each.value["replicas_per_node_group"]
-  num_node_groups         = each.value["num_node_groups"]
-  node_type               = each.value["node_type"]
-  parameter_group_name    = each.value["parameter_group_name"]
-
-
-  tags        = var.tags
-  env         = var.env
-  kms_key_arn = var.kms_key_arn
+  env  = var.env
+  tags = var.tags
 }

@@ -67,3 +67,20 @@ elasticache = {
     parameter_group_name = "default.redis6.x.cluster.on"
   }
 }
+
+alb = {
+  public = {
+    name = "public"
+    internal = false
+    load_balancer_type = "application"
+    subnet_ref = "pulic"
+
+  }
+
+  private = {
+    name = "private"
+    internal = true
+    load_balancer_type = "application"
+    subnet_ref = "app"
+  }
+}
