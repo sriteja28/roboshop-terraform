@@ -47,43 +47,50 @@ rds = {
 
 documentdb = {
   main = {
-    component = "docdb"
-    engine = "docdb"
-    engine_version = "4.0.0"
+    component         = "docdb"
+    engine            = "docdb"
+    engine_version    = "4.0.0"
     db_instance_count = 1
-    instance_class = "db.t3.medium"
+    instance_class    = "db.t3.medium"
 
   }
 }
 
 elasticache = {
   main = {
-    component = "elasticache"
-    engine = "redis"
-    engine_version = "6.x"
+    component               = "elasticache"
+    engine                  = "redis"
+    engine_version          = "6.x"
     replicas_per_node_group = 1
-    num_node_groups = 1
-    node_type = "cache.t3.micro"
-    parameter_group_name = "default.redis6.x.cluster.on"
+    num_node_groups         = 1
+    node_type               = "cache.t3.micro"
+    parameter_group_name    = "default.redis6.x.cluster.on"
   }
 }
 
 alb = {
   public = {
-    name = "public"
-    internal = false
+    name               = "public"
+    internal           = false
     load_balancer_type = "application"
-    subnet_ref = "public"
+    subnet_ref         = "public"
 
   }
   private = {
-    name = "private"
-    internal = true
+    name               = "private"
+    internal           = true
     load_balancer_type = "application"
-    subnet_ref = "app"
+    subnet_ref         = "app"
   }
 }
 
 apps = {
-
+  cart = {
+    component        = "cart"
+    app_port         = 8080
+    instance_type    = "t3.micro"
+    desired_capacity = 1
+    max_size         = 1
+    min_size         = 1
+  }
 }
