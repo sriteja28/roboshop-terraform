@@ -73,7 +73,7 @@ alb = {
     name = "public"
     internal = false
     load_balancer_type = "application"
-    subnet_ref = "pulic"
+    subnet_ref = "public"
 
   }
 
