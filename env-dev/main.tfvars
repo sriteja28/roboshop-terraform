@@ -55,6 +55,23 @@ documentdb = {
 elasticache = {
   main = {
     component = "elasticache"
+    engine = "redis"
+    engine_version = "6.2"
+    replicas_per_node_group = 1
+    num_node_groups = 1
+
+
+
 
   }
 }
+
+#variable "engine" {}
+#variable "node_type" {}
+#variable "engine_version" {}
+#variable "port" {
+#  default = 6379
+#}
+#variable "vpc_id" {}
+#variable "num_node_groups" {}
+#variable "replicas_per_node_group" {}
