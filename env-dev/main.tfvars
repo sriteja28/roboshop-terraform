@@ -142,7 +142,7 @@ apps = {
   }
   frontend = {
     component        = "frontend"
-    app_port         = 8080
+    app_port         = 80
     instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 1
