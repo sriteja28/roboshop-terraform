@@ -118,7 +118,7 @@ apps = {
     lb_ref           = "private"
     lb_rule_priority = 102
   }
-  cart = {
+  shipping = {
     component        = "shipping"
     app_port         = 8080
     instance_type    = "t3.small"
