@@ -94,5 +94,6 @@ apps = {
     min_size         = 1
     subnet_ref       = "app"
     lb_ref           = "private"
+    lb_rule_priority = 100
   }
 }
