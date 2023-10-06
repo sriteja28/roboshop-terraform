@@ -108,6 +108,7 @@ module "alb" {
 
 module "apps" {
   source = "git::https://github.com/sriteja28/tf-module-app.git"
+  depends_on = [module.vpc, module.rabbitmq, module.documentdb, module.elasticache, module.alb, module.rds]
 
   for_each         = var.apps
   app_port         = each.value["app_port"]
