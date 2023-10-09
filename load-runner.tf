@@ -12,8 +12,6 @@ resource "aws_instance" "load-runner" {
   tags                   = {
     Name = "load-runner"
   }
-}
-
   provisioner "remote-exec" {
     connection {
       user     = "root"
