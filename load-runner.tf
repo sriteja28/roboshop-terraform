@@ -13,15 +13,15 @@ resource "aws_instance" "load-runner" {
     Name = "load-runner"
   }
 
-  provisioner "remote-exec" {
-    connection {
-      user     = "root"
-      password = "DevOps321"
-      host     = self.public_ip
-    }
-    inline = [
-      "curl https://raw.githubusercontent.com/linuxautomations/labautomation/master/tools/docker/install.sh | bash",
-      "docker pull robotshop/rs-load:latest"
-    ]
-  }
-}
+#  provisioner "remote-exec" {
+#    connection {
+#      user     = "root"
+#      password = "DevOps321"
+#      host     = self.public_ip
+#    }
+#    inline = [
+#      "curl https://raw.githubusercontent.com/linuxautomations/labautomation/master/tools/docker/install.sh | bash",
+#      "docker pull robotshop/rs-load:latest"
+#    ]
+#  }
+#}
