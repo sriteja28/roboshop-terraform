@@ -9,9 +9,10 @@ resource "aws_instance" "load-runner" {
   ami                    = data.aws_ami.ami.id
   instance_type          = "t3.medium"
   vpc_security_group_ids = ["sg-0df2cde9ab8f70430"]
-  tags = {
+  tags                   = {
     Name = "load-runner"
   }
+}
 
 #  provisioner "remote-exec" {
 #    connection {
