@@ -20,12 +20,12 @@ vpc = {
   }
 }
 
-default_vpc_id = "vpc-07e965f3c5e0cef0a"
-default_vpc_rt = "rtb-0536cf0e3912e0a5a"
-allow_ssh_cidr = ["172.31.29.210/32"]
-zone_id        = "Z070672135BYB8H2ZSHPN"
-kms_key_id     = "80393f26-f6cd-4ccf-8282-eec198269898"
-kms_key_arn    = "arn:aws:kms:us-east-1:178724175855:key/80393f26-f6cd-4ccf-8282-eec198269898"
+default_vpc_id        = "vpc-07e965f3c5e0cef0a"
+default_vpc_rt        = "rtb-0536cf0e3912e0a5a"
+allow_ssh_cidr        = ["172.31.29.210/32"]
+zone_id               = "Z070672135BYB8H2ZSHPN"
+kms_key_id            = "80393f26-f6cd-4ccf-8282-eec198269898"
+kms_key_arn           = "arn:aws:kms:us-east-1:178724175855:key/80393f26-f6cd-4ccf-8282-eec198269898"
 allow_prometheus_cidr = ["172.31.21.192/32"]
 
 rabbitmq = {
@@ -98,39 +98,39 @@ apps = {
     lb_rule_priority = 100
   }
   catalogue = {
-    component        = "catalogue"
-    app_port         = 8080
-    instance_type    = "t3.small"
-    desired_capacity = 1
-    max_size         = 1
-    min_size         = 1
-    subnet_ref       = "app"
-    lb_ref           = "private"
-    lb_rule_priority = 101
+    component          = "catalogue"
+    app_port           = 8080
+    instance_type      = "t3.small"
+    desired_capacity   = 1
+    max_size           = 1
+    min_size           = 1
+    subnet_ref         = "app"
+    lb_ref             = "private"
+    lb_rule_priority   = 101
     extra_param_access = ["arn:aws:ssm:us-east-1:178724175855:parameter/roboshop.prod.docdb.*"]
   }
   user = {
-    component        = "user"
-    app_port         = 8080
-    instance_type    = "t3.small"
-    desired_capacity = 1
-    max_size         = 1
-    min_size         = 1
-    subnet_ref       = "app"
-    lb_ref           = "private"
-    lb_rule_priority = 102
+    component          = "user"
+    app_port           = 8080
+    instance_type      = "t3.small"
+    desired_capacity   = 1
+    max_size           = 1
+    min_size           = 1
+    subnet_ref         = "app"
+    lb_ref             = "private"
+    lb_rule_priority   = 102
     extra_param_access = ["arn:aws:ssm:us-east-1:178724175855:parameter/roboshop.prod.docdb.*"]
   }
   shipping = {
-    component        = "shipping"
-    app_port         = 8080
-    instance_type    = "t3.small"
-    desired_capacity = 1
-    max_size         = 1
-    min_size         = 1
-    subnet_ref       = "app"
-    lb_ref           = "private"
-    lb_rule_priority = 103
+    component          = "shipping"
+    app_port           = 8080
+    instance_type      = "t3.small"
+    desired_capacity   = 1
+    max_size           = 1
+    min_size           = 1
+    subnet_ref         = "app"
+    lb_ref             = "private"
+    lb_rule_priority   = 103
     extra_param_access = ["arn:aws:ssm:us-east-1:178724175855:parameter/roboshop.prod.mysql.*"]
 
   }
@@ -155,5 +155,11 @@ apps = {
     subnet_ref       = "web"
     lb_ref           = "public"
     lb_rule_priority = 100
+  }
+}
+
+eks = {
+  main = {
+    subnet_ref = "app"
   }
 }

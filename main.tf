@@ -133,3 +133,11 @@ module "vpc" {
 #  kms_arn = var.kms_key_arn
 #  allow_prometheus_cidr = var.allow_prometheus_cidr
 #}
+
+
+module "eks" {
+  source   = "git::https://github.com/sriteja28/tf-module-eks.git"
+  for_each = var.eks
+  subnets_ids   = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnet_ids", null), each.value["subnet_ref"], null), "subnet_ids", null)
+  env = var.env
+}
